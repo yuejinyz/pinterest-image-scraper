@@ -17,7 +17,8 @@ def download(myinput, mydir = "./"):
         res.raise_for_status()
         #https://stackoverflow.com/questions/18727347/how-to-extract-a-filename-from-a-url-append-a-word-to-it
         # outfile = mydir + "/" + os.path.basename(urlparse(myinput).path)
-        outfile = mydir + "/" + os.path.basename(urlparse(str(myinput)).path)
+        outfile = mydir + "/" + os.path.basename(urlparse( str(myinput) ).path)
+        outfile = outfile.replace("'", '')
         playFile = open(outfile, 'wb')
         for chunk in res.iter_content(100000):
             playFile.write(chunk)
