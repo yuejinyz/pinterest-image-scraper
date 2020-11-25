@@ -1,4 +1,6 @@
 # Pinterest Image Scraper
+### Guide 2.0 for Chrome Users Only
+### modified by Yue
 
 Now you can take the URL to any Pinterest board (or a CSV of a bunch of boards) and return a Python list of the URLs to the hi-rez versions of all of the images on the board.
 
@@ -12,6 +14,8 @@ Now you can take the URL to any Pinterest board (or a CSV of a bunch of boards) 
 - If you want to use Chrome or PhantomJS, install their respective selenium drivers: ```conda install python-chromedriver-binary phantomjs```
 - A [Pinterest](http://www.pinterest.com) Account
 
+Try this: ```pip install webdriver-manager```
+
 ## How to Run:
 
 ```
@@ -20,10 +24,15 @@ cd pinterest-image-scraper
 pip install -U .
 cd ..
 python
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+driver = webdriver.Chrome(ChromeDriverManager().install())
+
 from pinterest_scraper import scraper as s
-ph = s.Pinterest_Helper(<Pinterst login> , <Pinterest password>)
+ph = s.Pinterest_Helper(<Pinterst login> , <Pinterest password>, driver)
 images = ph.runme("http://URL-to-image-board")
 ```
+Note: type key words you want to search and get URL.
 
 ### Or if you have a CSV file with a URL to a different image board on every line:
 
@@ -41,13 +50,5 @@ s.download(images, "/path/to/your/destination/dir")
 
 ```
 s.download(images)
-```
-
-Note: you no longer need Firefox.  If you'd like to use a different browser (i.e. Chrome or PhantomJS), you'll need to initialize it through selenium, then pass it through the Pinterest_Helper object.  For example, using Chrome:
-
-```
-from selenium import webdriver
-chrome = webdriver.Chrome()
-ph = s.Pinterest_Helper(<Pinterst login> , <Pinterest password>, chrome)
 ```
 
